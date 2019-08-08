@@ -10,14 +10,12 @@ $updatescope = New-Object Microsoft.UpdateServices.Administration.UpdateScope
 $updatescope.ApprovedStates = "LatestRevisionApproved"
 $updatescope.ApprovedComputerTargetGroups.Add($group)
 $approvals = $wsus.GetUpdateApprovals($updatescope)
-Write-Host "I am here"
 Write-Host $approvals.Count
 
 foreach ($approval in $approvals)
 {
     if(($wsus.GetUpdate($approval.UpdateId).Title -like '*Windows 8.1*') -and ($wsus.GetUpdate($approval.UpdateId).Title -like '*Update*') -and ($wsus.GetUpdate($approval.UpdateId).ArrivalDate -gt '01/07/2019 12:00:00 AM'))
     {
-        Write-Host "I am here now"
         Write-Host $wsus.GetUpdate($approval.UpdateId).Title
         $uris = $wsus.GetUpdate($approval.UpdateId).GetInstallableItems() | select -Expand Files
         foreach ($uri in $uris)
