@@ -220,7 +220,7 @@ else {
         #Create the registry entry
         Write-Log "Info" "Creating Registry Structure"
         try {
-            New-Item -Path "HKLM:\SOFTWARE\Tata" -Name "BLEnabler" -Force
+            New-Item -Path "HKLM:\SOFTWARE" -Name "BLEnabler" -Force
             New-ItemProperty -Path "HKLM:\SOFTWARE\BLEnabler" -Name "IsRun" -Value "1"
             Write-Log "Info" "Registry structure created. Proceeding to set the request flag to Clear TPM."
             #Write-Host "Setting Bitlocker Flag"
