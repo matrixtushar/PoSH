@@ -155,7 +155,7 @@ else {
                         #enable went fine
                         Write-Log "Info" "Bitlocker Enabled Successfully"
                         #Remove every registry setting
-                        Write-Log "Info" "Removing the Registry Keys HKLM\SOFTWARE\Tata\BLEnabler"
+                        Write-Log "Info" "Removing the Registry Keys HKLM\SOFTWARE\BLEnabler"
                         Remove-Item -Path "HKLM:\SOFTWARE\BLEnabler" -Force
                         #Remove the Run key as its no longer needed
                         Write-Log "Info" "Removing the Run Key Value as it is not longer needed to execute the script again"
@@ -177,7 +177,7 @@ else {
                 Write-Log "Info" "The user has Cancelled the request to Clear the TPM"
                 # Set request again to clear the TPM if RunCount is less than equal to 5
                 Write-Log "Info" "Raising Request Flag to Clear TPM if Count less than 6 attempts"
-                $sRunCount = Get-ItemProperty -Path "HKLM:\SOFTWARE\Tata\BLEnabler" -Name "RunCount"
+                $sRunCount = Get-ItemProperty -Path "HKLM:\SOFTWARE\BLEnabler" -Name "RunCount"
                 $sRunCount = $sRunCount.RunCount
                 $sRunCount = $sRunCount.RunCount
                 Write-Log "Output" "The total number of times the script has run is $sRunCount"
