@@ -362,7 +362,7 @@ $Label7.location = New-Object System.Drawing.Point(2,290)
 $Label7.Font = 'Microsoft Sans Serif,8'
 
 $Label8 = New-Object system.Windows.Forms.Label
-$Label8.text = "tushar@my.ibm.com"
+$Label8.text = "matrixtushar@gmail.com"
 $Label8.AutoSize = $true
 $Label8.width = 10
 $Label8.height = 5
