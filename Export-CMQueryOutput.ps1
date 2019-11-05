@@ -1,5 +1,5 @@
 #Script Name:     Export-CMQueryOutput.ps1
-#Script Ver:      1.00.00
+#Script Ver:      1.01.00
 #Script Author:   Tushar Singh, matrixtushar@gmail.com
 #Script Purpose:  This script can export the results of the specified SCCM query into a formatted CSV File
 #Script Usage:    GUI Based Script, launch to view a form.
@@ -19,7 +19,8 @@
 #                 2. User executing the script must have query execution rights on the SCCM server.
 #                 3. User executing the script must have write permissions on the folder where the csv file will be exported.
 # Feedback:       To write in to matrixtushar@gmail.com for feedback, improvements, issues and ofcourse, appreciations.
-#               
+# Change Log:     1.00.00       Initial Version
+#                 1.01.00       Improvement with CSV Formatting. Removed space before and after ','
 Function Connect-SCCM
 {
     $SiteCode = ""
@@ -322,7 +323,17 @@ $Button3.Add_Click(
         $execQuery = Export-QueryResult
         if($execQuery)
         {
-            $Label7.Text = "Status: Export Complete."
+            $Label7.Text = "Status: Export Complete. Formatting Output, please wait."
+            $fPath = $TextBox4.Text
+            $fileContent = Get-Content -Path $fpath
+            Remove-Item -Path $fpath -Force
+            New-Item -Path $fpath -ItemType File -Force
+            Foreach ($line in $fileContent)
+            {
+                $outline = $line.Replace(' , ' , ',')
+                Add-Content -Path $fpath -Value $outline -Force
+            }
+            $Label7.Text = "Status: File Ready. You can close the tool."
         }
         else {
             $Label7.Text = "Status: Error Exporting. Try Again."
@@ -351,11 +362,11 @@ $Label7.location = New-Object System.Drawing.Point(2,290)
 $Label7.Font = 'Microsoft Sans Serif,8'
 
 $Label8 = New-Object system.Windows.Forms.Label
-$Label8.text = "matrixtushar@gmail.com"
+$Label8.text = "tushar@my.ibm.com"
 $Label8.AutoSize = $true
 $Label8.width = 10
 $Label8.height = 5
-$Label8.location = New-Object System.Drawing.Point(450,290)
+$Label8.location = New-Object System.Drawing.Point(460,290)
 $Label8.Font = 'Microsoft Sans Serif,8'
 
 $Form.controls.AddRange(@($Label1,$TextBox1,$Label2,$TextBox2,$Label3,$TextBox3,$Label4,$Label5,$ComboBox1,$Label6,$Label7,$Label8,$TextBox4,$Button1,$Button2,$Button3,$Button4))
